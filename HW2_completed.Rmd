@@ -1,0 +1,119 @@
+---
+title: "Homework 2"
+author: "Rashna Soonavala"
+date: "01/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Documents/lab2/")
+```
+
+```{r Load packages, message=FALSE, warning=FALSE, include=FALSE, results='hide'}
+library(tidyverse)
+library(readxl)
+library(broom)
+library(cowplot)
+set.seed(7)
+```
+
+# Question 1
+Import the Lab2 data file, name the resulting data frame hw2_df. What are the dimensions (number of rows and columns) of this data frame?
+```{r}
+hw2_df <- read_delim(file = "raw_data/Lab2_data.txt", 
+                     delim = "\t", 
+                     escape_double = FALSE, 
+                     trim_ws = TRUE, 
+                     na=c("NA"))
+hw2_df
+#16 columns, 4422 rows
+```
+
+
+
+# Question 2
+Filter the hw2_df data frame for data from Fall 2018, only include study weeks 1 and 3, subset for BRMPS, drop any data from students that did not consume the full quantity of the supplement, or samples that are not within the weight range (0.1 - 1.0 grams). Keep columns with participant & sample data, and butyrate measurements. Hint: use the accessor functions to identify column and variable names. Name the resulting data frame hw2_f18. 
+```{r}
+hw2_f18 <- filter(hw2_df, 
+                  study_week== "week1" | study_week=="week3", 
+               supplement_consumed == "BRMPS", sample_weight_g>0.1, sample_weight_g<1.0, use_data=="yes", semester=="Fall2018") 
+hw2_f18 <- select(hw2_f18, participant_id, sample_number, sample_id, study_week, semester, use_data, quantity_compliant, frequency, supplement_consumed, butyrate_mM) 
+
+
+
+```
+
+Repeat the filtering and subsetting above for students from Winter 2019. Name the resulting data frame hw2_w19. 
+```{r}
+hw2_w19 <- filter(hw2_df, 
+                  study_week== "week1" | study_week=="week3", 
+               supplement_consumed == "BRMPS", sample_weight_g>0.1, sample_weight_g<1.0, use_data=="yes", semester=="Winter2019") 
+hw2_f18 <- select(hw2_f18, participant_id, sample_number, sample_id, study_week, semester, use_data, quantity_compliant, frequency, supplement_consumed, butyrate_mM) 
+
+
+ n_distinct(hw2_w19$participant_id)
+ n_distinct(hw2_f18$participant_id)
+ 
+ 
+```
+
+Which semester contains more individual students?
+```Winter 2019 has more individual students. 
+
+```
+
+
+# Question 3
+Import the question3_data file, complete the following as one long series of commands using pipes: 
+
+* Convert measurements from US Customary to metric units (1 kg = 2.205 pounds, 1 m = 35.274 inches)
+* Round participant height and weight to 0 decimal positions
+* Subset for samples within the weight limits (0.1 - 1.0 grams)
+* Round SCFA concentrations to 2 decimal positions
+* Exclude samples that were not frozen within 24 hours
+* Drop any intermediate columns used for calculations 
+
+Name the resulting data frame hw2_q3. What are the dimensions of the resulting data frame? 
+```{r}
+library(readr)
+question3_data <- read_delim("Documents/lab2/raw_data/question3_data.txt", 
+    "\t", escape_double = FALSE, trim_ws = TRUE)
+View(question3_data)
+
+hw2_q3<-question3_data %>%
+  mutate(hw2_q3, wt_kg= round(wt_lbs/2.205, digits= 0)
+  mutate(hw2_q3, ht_m= round(ht_in/35.274, digits=0))
+hw2_q3<-filter(wt_kg>0.0001, wt_kg<0.001
+               
+```
+
+
+# Question 4
+
+Using the hw2_q3 data frame; apply the group_by() and summarise() functions to determine the mean concentration (in mmol/kg) of each of the three SCFAs (acetate, butyrate, propionate) for each participant, during each week of the study. Use the mutate() function to calculate the total SCFA concentration for each participant, during each week of the study. Drop any intermediate columns used for calculations. Name the resulting data frame hw2_q4. What are the dimensions of the resulting data frame?
+```{r}
+
+```
+
+
+# Question 5
+
+Export/save the data frame created in Question 4. Processed/curated data frames should be uploaded to 'curated_data' directory on your GitHub Page.
+```{r}
+
+```
+
+# Question 6
+Complete writing assignment assigned in lecture 1 in a Word Document. Submit file to HW2 assignment on Canvas. 
+
+
+# Extra credit
+
+Can you conduct the analyses in Questions 3, 4, 5 as one long series of pipes (from import to export, without creating any intermediate data frames)?
+```{r}
+
+```
+
+-----
+end
