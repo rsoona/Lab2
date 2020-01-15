@@ -31,7 +31,7 @@ Filter the hw2_df data frame for data from Fall 2018, only include study weeks 1
 
 ```
 
-Repeat the filtering and subsetting above for students from Fall 2019. Name the resulting data frame hw2_f19. 
+Repeat the filtering and subsetting above for students from Winter 2019. Name the resulting data frame hw2_w19. 
 ```{r}
 
 ```
@@ -68,10 +68,13 @@ Using the hw2_q3 data frame; apply the group_by() and summarise() functions to d
 
 # Question 5
 
-Export/save the data frame created in Question 4:
+Export/save the data frame created in Question 4. Processed/curated data frames should be uploaded to 'curated_data' directory on your GitHub Page.
 ```{r}
 
 ```
+
+# Question 6
+Complete writing assignment assigned in lecture 1 in a Word Document. Submit file to HW2 assignment on Canvas. 
 
 
 # Extra credit
